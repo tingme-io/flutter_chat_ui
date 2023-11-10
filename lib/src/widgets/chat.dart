@@ -101,6 +101,7 @@ class Chat extends StatefulWidget {
     this.useTopSafeAreaInset,
     this.videoMessageBuilder,
     this.slidableMessageBuilder,
+    this.customStartChatWidget,
   });
 
   /// See [Message.audioMessageBuilder].
@@ -325,6 +326,9 @@ class Chat extends StatefulWidget {
   /// See [Message.slidableMessageBuilder].
   final Widget Function(types.Message, Widget msgWidget)?
       slidableMessageBuilder;
+
+  /// Widget that will be shown at the start of the list, before chat list items.
+  final Widget? customStartChatWidget;
 
   @override
   State<Chat> createState() => ChatState();
@@ -644,6 +648,8 @@ class ChatState extends State<Chat> {
                                         widget.typingIndicatorOptions,
                                     useTopSafeAreaInset:
                                         widget.useTopSafeAreaInset ?? isMobile,
+                                    customStartChatWidget:
+                                        widget.customStartChatWidget,
                                   ),
                                 ),
                               ),

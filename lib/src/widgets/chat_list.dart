@@ -24,6 +24,7 @@ class ChatList extends StatefulWidget {
     this.scrollPhysics,
     this.typingIndicatorOptions,
     required this.useTopSafeAreaInset,
+    this.customStartChatWidget,
   });
 
   /// A custom widget at the bottom of the list.
@@ -67,6 +68,9 @@ class ChatList extends StatefulWidget {
 
   /// Whether to use top safe area inset for the list.
   final bool useTopSafeAreaInset;
+
+  /// Widget that will be shown at the start of the list, before chat list items.
+  final Widget? customStartChatWidget;
 
   @override
   State<ChatList> createState() => _ChatListState();
@@ -340,6 +344,10 @@ class _ChatListState extends State<ChatList>
                 ),
               ),
             ),
+            if (widget.customStartChatWidget != null)
+              SliverToBoxAdapter(
+                child: widget.customStartChatWidget,
+              ),
           ],
         ),
       );
