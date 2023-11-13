@@ -267,7 +267,9 @@ List<Object> calculateChatMessages(
           gallery.add(PreviewImage(id: message.id, uri: message.uri));
         }
       } else {
-        gallery.add(PreviewImage(id: message.id, uri: message.uri));
+        message.uris?.forEach((uri) {
+          gallery.add(PreviewImage(id: '${message.id}-$uri', uri: uri));
+        });
       }
     }
   }
