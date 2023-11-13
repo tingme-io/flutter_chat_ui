@@ -134,6 +134,7 @@ class _ChatPageState extends State<ChatPage> {
         name: result.name,
         size: bytes.length,
         uri: result.path,
+        uris: [result.path], //TODO: (trien) check this
         width: image.width.toDouble(),
       );
 

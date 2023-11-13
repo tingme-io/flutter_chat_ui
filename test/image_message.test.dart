@@ -19,6 +19,7 @@ void main() {
                 size: 100,
                 uri: 'image',
                 width: 1920,
+                uris: ['image'],
               ),
             ],
             onSendPressed: (types.PartialText message) => {},

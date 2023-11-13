@@ -193,6 +193,17 @@ class Message extends StatelessWidget {
           )
       : const SizedBox(width: 40);
 
+  Color? _bubbleBgColor(
+    BuildContext context,
+    bool currentUserIsAuthor,
+  ) {
+    if (message.type == types.MessageType.image) return Colors.transparent;
+
+    return !currentUserIsAuthor
+        ? InheritedChatTheme.of(context).theme.secondaryColor
+        : InheritedChatTheme.of(context).theme.primaryColor;
+  }
+
   Widget _bubbleBuilder(
     BuildContext context,
     BorderRadius borderRadius,
@@ -210,10 +221,7 @@ class Message extends StatelessWidget {
               : Container(
                   decoration: BoxDecoration(
                     borderRadius: borderRadius,
-                    color: !currentUserIsAuthor ||
-                            message.type == types.MessageType.image
-                        ? InheritedChatTheme.of(context).theme.secondaryColor
-                        : InheritedChatTheme.of(context).theme.primaryColor,
+                    color: _bubbleBgColor(context, currentUserIsAuthor),
                   ),
                   child: ClipRRect(
                     borderRadius: borderRadius,

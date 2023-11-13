@@ -43,6 +43,7 @@ class ImageMessage extends StatefulWidget {
 /// [ImageMessage] widget state.
 class _ImageMessageState extends State<ImageMessage> {
   ImageProvider? _image;
+  List<ImageProvider>? _images;
   Size _size = Size.zero;
   ImageStream? _stream;
 
@@ -59,6 +60,20 @@ class _ImageMessageState extends State<ImageMessage> {
             widget.message.uri,
             headers: widget.imageHeaders,
           );
+
+    _images = widget.message.uris
+        ?.map((uri) => widget.imageProviderBuilder != null
+            ? widget.imageProviderBuilder!(
+                uri: uri,
+                imageHeaders: widget.imageHeaders,
+                conditional: Conditional(),
+              )
+            : Conditional().getProvider(
+                uri,
+                headers: widget.imageHeaders,
+              ))
+        .toList();
+
     _size = Size(widget.message.width ?? 0, widget.message.height ?? 0);
   }
 
@@ -100,95 +115,52 @@ class _ImageMessageState extends State<ImageMessage> {
   Widget build(BuildContext context) {
     final user = InheritedUser.of(context).user;
 
-    if (_size.aspectRatio == 0) {
-      return Container(
-        color: InheritedChatTheme.of(context).theme.secondaryColor,
-        height: _size.height,
-        width: _size.width,
-      );
-    } else if (_size.aspectRatio < 0.1 || _size.aspectRatio > 10) {
-      return Container(
-        color: user.id == widget.message.author.id
-            ? InheritedChatTheme.of(context).theme.primaryColor
-            : InheritedChatTheme.of(context).theme.secondaryColor,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 64,
-              margin: EdgeInsetsDirectional.fromSTEB(
-                InheritedChatTheme.of(context).theme.messageInsetsVertical,
-                InheritedChatTheme.of(context).theme.messageInsetsVertical,
-                16,
-                InheritedChatTheme.of(context).theme.messageInsetsVertical,
-              ),
-              width: 64,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image(
-                  fit: BoxFit.cover,
-                  image: _image!,
-                ),
-              ),
-            ),
-            Flexible(
-              child: Container(
-                margin: EdgeInsetsDirectional.fromSTEB(
-                  0,
-                  InheritedChatTheme.of(context).theme.messageInsetsVertical,
-                  InheritedChatTheme.of(context).theme.messageInsetsHorizontal,
-                  InheritedChatTheme.of(context).theme.messageInsetsVertical,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.message.name,
-                      style: user.id == widget.message.author.id
-                          ? InheritedChatTheme.of(context)
-                              .theme
-                              .sentMessageBodyTextStyle
-                          : InheritedChatTheme.of(context)
-                              .theme
-                              .receivedMessageBodyTextStyle,
-                      textWidthBasis: TextWidthBasis.longestLine,
+    if (_images == null) return const SizedBox();
+
+    final imagesNums = (_images?.length ?? 0);
+    final itemSize = (imagesNums == 4 || imagesNums == 2) ? 124 : 80;
+    final itemPadding = 8.toDouble();
+    const maxItemInRow = 3;
+    const maxItemInColumn = 3;
+
+    final rowNums = (imagesNums / maxItemInRow).ceil();
+    final colNums = imagesNums >= maxItemInColumn
+        ? maxItemInColumn
+        : ((imagesNums % maxItemInColumn).floor() + 1);
+
+    final msgHeight = rowNums * itemSize;
+    final msgWidth = colNums * itemSize;
+
+    return Container(
+      constraints: BoxConstraints(
+        maxHeight: imagesNums > 1
+            ? msgHeight.toDouble()
+            : widget.messageWidth.toDouble(),
+        minWidth: imagesNums > 1 ? msgWidth.toDouble() : 170,
+      ),
+      child: Wrap(
+        children: _images == null
+            ? []
+            : _images!
+                .map(
+                  (image) => Container(
+                    width: imagesNums > 1 ? itemSize.toDouble() : null,
+                    height: imagesNums > 1 ? itemSize.toDouble() : null,
+                    padding: EdgeInsets.only(
+                      right: 8,
+                      bottom: colNums > 1 ? itemPadding : 0,
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 4,
-                      ),
-                      child: Text(
-                        formatBytes(widget.message.size.truncate()),
-                        style: user.id == widget.message.author.id
-                            ? InheritedChatTheme.of(context)
-                                .theme
-                                .sentMessageCaptionTextStyle
-                            : InheritedChatTheme.of(context)
-                                .theme
-                                .receivedMessageCaptionTextStyle,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image(
+                        fit: BoxFit.cover,
+                        image: image,
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return Container(
-        constraints: BoxConstraints(
-          maxHeight: widget.messageWidth.toDouble(),
-          minWidth: 170,
-        ),
-        child: AspectRatio(
-          aspectRatio: _size.aspectRatio > 0 ? _size.aspectRatio : 1,
-          child: Image(
-            fit: BoxFit.contain,
-            image: _image!,
-          ),
-        ),
-      );
-    }
+                  ),
+                )
+                .toList(),
+      ),
+    );
   }
 }

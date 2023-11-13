@@ -105,6 +105,7 @@ void main() {
         name: 'test image',
         size: 200,
         uri: 'https://some.image',
+        uris: ['https://some.image', 'https://some.image'],
       );
       expect(
         calculateChatMessages(
@@ -150,6 +151,7 @@ void main() {
           name: 'test image',
           size: 200,
           uri: 'https://some.image',
+          uris: ['https://some.image', 'https://some.image'],
         );
         expect(
           calculateChatMessages(
@@ -196,6 +198,7 @@ void main() {
           name: 'test image',
           size: 200,
           uri: 'https://some.image',
+          uris: ['https://some.image', 'https://some.image'],
         );
         expect(
           calculateChatMessages(
@@ -244,6 +247,7 @@ void main() {
             name: 'test image',
             size: 200,
             uri: 'https://some.image',
+            uris: ['https://some.image', 'https://some.image'],
             createdAt: 1655648404500,
           );
           expect(
