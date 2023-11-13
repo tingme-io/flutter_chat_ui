@@ -42,6 +42,7 @@ class Message extends StatelessWidget {
     this.onMessageStatusLongPress,
     this.onMessageStatusTap,
     this.onMessageTap,
+    this.onImageTap,
     this.onMessageVisibilityChanged,
     this.onPreviewDataFetched,
     required this.roundBorder,
@@ -140,6 +141,9 @@ class Message extends StatelessWidget {
 
   /// Called when user taps on any message.
   final void Function(BuildContext context, types.Message)? onMessageTap;
+
+  /// Called when user taps on images.
+  final void Function(String imageId)? onImageTap;
 
   /// Called when the message's visibility changes.
   final void Function(types.Message, bool visible)? onMessageVisibilityChanged;
@@ -255,6 +259,7 @@ class Message extends StatelessWidget {
                 imageProviderBuilder: imageProviderBuilder,
                 message: imageMessage,
                 messageWidth: messageWidth,
+                onImagePressed: (imageId) => onImageTap?.call(imageId),
               );
       case types.MessageType.text:
         final textMessage = message as types.TextMessage;
@@ -358,7 +363,9 @@ class Message extends StatelessWidget {
                 GestureDetector(
                   onDoubleTap: () => onMessageDoubleTap?.call(context, message),
                   onLongPress: () => onMessageLongPress?.call(context, message),
-                  onTap: () => onMessageTap?.call(context, message),
+                  onTap: message.type == types.MessageType.image
+                      ? null
+                      : () => onMessageTap?.call(context, message),
                   child: onMessageVisibilityChanged != null
                       ? VisibilityDetector(
                           key: Key(message.id),

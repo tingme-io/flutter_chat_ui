@@ -488,12 +488,12 @@ class ChatState extends State<Chat> {
           onMessageStatusLongPress: widget.onMessageStatusLongPress,
           onMessageStatusTap: widget.onMessageStatusTap,
           onMessageTap: (context, tappedMessage) {
-            if (tappedMessage is types.ImageMessage &&
-                widget.disableImageGallery != true) {
-              _onImagePressed(tappedMessage);
-            }
-
             widget.onMessageTap?.call(context, tappedMessage);
+          },
+          onImageTap: (imageId) {
+            if (widget.disableImageGallery != true) {
+              _onImagePressed(imageId);
+            }
           },
           onMessageVisibilityChanged: widget.onMessageVisibilityChanged,
           onPreviewDataFetched: _onPreviewDataFetched,
@@ -531,9 +531,9 @@ class ChatState extends State<Chat> {
     _galleryPageController = null;
   }
 
-  void _onImagePressed(types.ImageMessage message) {
+  void _onImagePressed(String imageId) {
     final initialPage = _gallery.indexWhere(
-      (element) => element.id == message.id && element.uri == message.uri,
+      (element) => element.id == imageId,
     );
     _galleryPageController = PageController(initialPage: initialPage);
     setState(() {

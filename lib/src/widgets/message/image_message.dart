@@ -18,6 +18,7 @@ class ImageMessage extends StatefulWidget {
     this.imageProviderBuilder,
     required this.message,
     required this.messageWidth,
+    this.onImagePressed,
   });
 
   /// See [Chat.imageHeaders].
@@ -36,6 +37,8 @@ class ImageMessage extends StatefulWidget {
   /// Maximum message width.
   final int messageWidth;
 
+  final void Function(String imageId)? onImagePressed;
+
   @override
   State<ImageMessage> createState() => _ImageMessageState();
 }
@@ -43,7 +46,7 @@ class ImageMessage extends StatefulWidget {
 /// [ImageMessage] widget state.
 class _ImageMessageState extends State<ImageMessage> {
   ImageProvider? _image;
-  List<ImageProvider>? _images;
+  List<String>? _images;
   Size _size = Size.zero;
   ImageStream? _stream;
 
@@ -61,19 +64,7 @@ class _ImageMessageState extends State<ImageMessage> {
             headers: widget.imageHeaders,
           );
 
-    _images = widget.message.uris
-        ?.map((uri) => widget.imageProviderBuilder != null
-            ? widget.imageProviderBuilder!(
-                uri: uri,
-                imageHeaders: widget.imageHeaders,
-                conditional: Conditional(),
-              )
-            : Conditional().getProvider(
-                uri,
-                headers: widget.imageHeaders,
-              ))
-        .toList();
-
+    _images = widget.message.uris;
     _size = Size(widget.message.width ?? 0, widget.message.height ?? 0);
   }
 
@@ -143,18 +134,32 @@ class _ImageMessageState extends State<ImageMessage> {
             ? []
             : _images!
                 .map(
-                  (image) => Container(
-                    width: imagesNums > 1 ? itemSize.toDouble() : null,
-                    height: imagesNums > 1 ? itemSize.toDouble() : null,
-                    padding: EdgeInsets.only(
-                      right: 8,
-                      bottom: colNums > 1 ? itemPadding : 0,
+                  (uri) => GestureDetector(
+                    onTap: () => widget.onImagePressed?.call(
+                      '${widget.message.id}-$uri',
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image(
-                        fit: BoxFit.cover,
-                        image: image,
+                    child: Container(
+                      width: imagesNums > 1 ? itemSize.toDouble() : null,
+                      height: imagesNums > 1 ? itemSize.toDouble() : null,
+                      padding: EdgeInsets.only(
+                        right: 8,
+                        bottom: colNums > 1 ? itemPadding : 0,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: widget.imageProviderBuilder != null
+                              ? widget.imageProviderBuilder!(
+                                  uri: uri,
+                                  imageHeaders: widget.imageHeaders,
+                                  conditional: Conditional(),
+                                )
+                              : Conditional().getProvider(
+                                  uri,
+                                  headers: widget.imageHeaders,
+                                ),
+                        ),
                       ),
                     ),
                   ),
