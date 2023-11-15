@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 import '../../conditional/conditional.dart';
-import '../../util.dart';
-import '../state/inherited_chat_theme.dart';
-import '../state/inherited_user.dart';
 
 /// A class that represents image message widget. Supports different
 /// aspect ratios, renders blurred image as a background which is visible
@@ -53,17 +50,6 @@ class _ImageMessageState extends State<ImageMessage> {
   @override
   void initState() {
     super.initState();
-    _image = widget.imageProviderBuilder != null
-        ? widget.imageProviderBuilder!(
-            uri: widget.message.uri,
-            imageHeaders: widget.imageHeaders,
-            conditional: Conditional(),
-          )
-        : Conditional().getProvider(
-            widget.message.uri,
-            headers: widget.imageHeaders,
-          );
-
     _images = widget.message.uris;
     _size = Size(widget.message.width ?? 0, widget.message.height ?? 0);
   }
@@ -104,8 +90,6 @@ class _ImageMessageState extends State<ImageMessage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = InheritedUser.of(context).user;
-
     if (_images == null) return const SizedBox();
 
     final imagesNums = (_images?.length ?? 0);

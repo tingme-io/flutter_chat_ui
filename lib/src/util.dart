@@ -263,12 +263,7 @@ List<Object> calculateChatMessages(
 
     if (message is types.ImageMessage) {
       if (kIsWeb) {
-        if (message.uri.startsWith('http') || message.uri.startsWith('blob')) {
-          gallery.add(PreviewImage(
-            id: '${message.id}-${message.uri}',
-            uri: message.uri,
-          ));
-        }
+        //TODO: handle web version
       } else {
         message.uris?.forEach((uri) {
           gallery.add(PreviewImage(id: '${message.id}-$uri', uri: uri));

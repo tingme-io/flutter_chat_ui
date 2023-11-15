@@ -12,7 +12,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:uuid/uuid.dart';
 
 void main() {
   initializeDateFormatting().then((_) => runApp(const MyApp()));
