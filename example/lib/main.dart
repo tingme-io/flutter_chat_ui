@@ -104,7 +104,7 @@ class _ChatPageState extends State<ChatPage> {
       final message = types.FileMessage(
         author: _user,
         createdAt: DateTime.now().millisecondsSinceEpoch,
-        id: const Uuid().v4(),
+        id: DateTime.now().millisecondsSinceEpoch,
         mimeType: lookupMimeType(result.files.single.path!),
         name: result.files.single.name,
         size: result.files.single.size,
@@ -130,7 +130,7 @@ class _ChatPageState extends State<ChatPage> {
         author: _user,
         createdAt: DateTime.now().millisecondsSinceEpoch,
         height: image.height.toDouble(),
-        id: const Uuid().v4(),
+        id: DateTime.now().millisecondsSinceEpoch,
         name: result.name,
         size: bytes.length,
         uri: result.path,
@@ -205,7 +205,7 @@ class _ChatPageState extends State<ChatPage> {
     final textMessage = types.TextMessage(
       author: _user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: const Uuid().v4(),
+      id: DateTime.now().millisecondsSinceEpoch,
       text: message.text,
     );
 
