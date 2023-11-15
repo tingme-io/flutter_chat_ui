@@ -21,14 +21,14 @@ void main() {
 
   group('getUserAvatarNameColor', () {
     test('returns correct avatar color', () {
-      const user = types.User(firstName: 'John', id: '1', lastName: 'Doe');
+      const user = types.User(firstName: 'John', id: 1, lastName: 'Doe');
       expect(getUserAvatarNameColor(user, colors), const Color(0xff66e0da));
     });
   });
 
   group('getUserInitials', () {
     test('returns correct user initials', () {
-      const user = types.User(firstName: 'John', id: '1', lastName: 'Doe');
+      const user = types.User(firstName: 'John', id: 1, lastName: 'Doe');
       expect(getUserInitials(user), 'JD');
     });
   });
@@ -37,7 +37,7 @@ void main() {
     test(
       'returns correct user name when first name and last name provided',
       () {
-        const user = types.User(firstName: 'John', id: '1', lastName: 'Doe');
+        const user = types.User(firstName: 'John', id: 1, lastName: 'Doe');
         expect(getUserName(user), 'John Doe');
       },
     );
@@ -45,13 +45,13 @@ void main() {
     test('returns correct user name when only first name provided', () {
       const user = types.User(
         firstName: 'John',
-        id: '1',
+        id: 1,
       );
       expect(getUserName(user), 'John');
     });
 
     test('returns correct user name when only last name provided', () {
-      const user = types.User(id: '1', lastName: 'Doe');
+      const user = types.User(id: 1, lastName: 'Doe');
       expect(getUserName(user), 'Doe');
     });
   });
@@ -68,7 +68,7 @@ void main() {
   group('isConsistsOfEmojis', () {
     test('returns false if text doesnt contain emoji', () {
       const message = types.TextMessage(
-        author: types.User(id: '1'),
+        author: types.User(id: 1),
         id: '1',
         text: 'test',
       );
@@ -80,7 +80,7 @@ void main() {
 
     test('returns true if text contains emoji', () {
       const message = types.TextMessage(
-        author: types.User(id: '1'),
+        author: types.User(id: 1),
         id: '1',
         text: '😊',
       );
@@ -93,7 +93,7 @@ void main() {
 
   group('calculateChatMessages', () {
     test('correctly returns calculated chat messages', () {
-      const user = types.User(id: '1');
+      const user = types.User(id: 1);
       const message = types.TextMessage(
         author: user,
         id: '1',
@@ -139,7 +139,7 @@ void main() {
 
     group('Unread header', () {
       test('correctly adds unread messages header if last seen specified', () {
-        const user = types.User(id: '1');
+        const user = types.User(id: 1);
         const message = types.TextMessage(
           author: user,
           id: '1',
@@ -186,7 +186,7 @@ void main() {
       });
 
       test('does not add unread messages header if last message', () {
-        const user = types.User(id: '1');
+        const user = types.User(id: 1);
         const message = types.TextMessage(
           author: user,
           id: '1',
@@ -234,7 +234,7 @@ void main() {
       test(
         'does not group messages closer together if unread header is in between',
         () {
-          const user = types.User(id: '1');
+          const user = types.User(id: 1);
           const message = types.TextMessage(
             author: user,
             id: '1',

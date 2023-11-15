@@ -15,13 +15,13 @@ void main() {
           child: Chat(
             messages: const [
               types.TextMessage(
-                author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+                author: types.User(id: 1),
                 id: 'id',
                 text: 'text',
               ),
             ],
             onSendPressed: (types.PartialText message) => {},
-            user: const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+            user: const types.User(id: 1),
           ),
         ),
       ),
@@ -42,7 +42,7 @@ void main() {
           child: Chat(
             messages: const [
               types.TextMessage(
-                author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+                author: types.User(id: 1),
                 id: 'id',
                 previewData: types.PreviewData(
                   description: 'Flutter',
@@ -56,7 +56,7 @@ void main() {
                 (types.TextMessage message, types.PreviewData previewData) =>
                     {},
             onSendPressed: (types.PartialText message) => {},
-            user: const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+            user: const types.User(id: 1),
           ),
         ),
       ),
@@ -80,12 +80,12 @@ void main() {
           child: Chat(
             messages: const [
               types.TextMessage(
-                author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+                author: types.User(id: 1),
                 id: 'id',
                 text: 'Short message',
               ),
               types.TextMessage(
-                author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+                author: types.User(id: 1),
                 id: 'id2',
                 text:
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
@@ -99,7 +99,7 @@ void main() {
                     'laborum.',
               ),
               types.TextMessage(
-                author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+                author: types.User(id: 1),
                 id: 'id3',
                 text:
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
@@ -113,7 +113,7 @@ void main() {
                     'laborum.',
               ),
               types.TextMessage(
-                author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+                author: types.User(id: 1),
                 id: 'previewId',
                 previewData: types.PreviewData(
                   description: 'Flutter',
@@ -134,7 +134,7 @@ void main() {
                 messagesVisible.remove(m.id);
               }
             },
-            user: const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+            user: const types.User(id: 1),
           ),
         ),
       ),

@@ -12,7 +12,7 @@ void main() {
           child: Chat(
             messages: const [
               types.FileMessage(
-                author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+                author: types.User(id: 1),
                 id: 'id',
                 name: 'file',
                 size: 100,
@@ -20,7 +20,7 @@ void main() {
               ),
             ],
             onSendPressed: (types.PartialText message) => {},
-            user: const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+            user: const types.User(id: 1),
           ),
         ),
       ),
