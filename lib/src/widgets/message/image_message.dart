@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_chat_ui/src/widgets/state/inherited_user.dart';
 
 import '../../conditional/conditional.dart';
 
@@ -88,6 +89,11 @@ class _ImageMessageState extends State<ImageMessage> {
     super.dispose();
   }
 
+  bool _isCurrentUserAuthor() {
+    final user = InheritedUser.of(context).user;
+    return user.id == widget.message.author.id;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_images == null) return const SizedBox();
@@ -101,12 +107,14 @@ class _ImageMessageState extends State<ImageMessage> {
     final rowNums = (imagesNums / maxItemInRow).ceil();
     final colNums = imagesNums >= maxItemInColumn
         ? maxItemInColumn
-        : ((imagesNums % maxItemInColumn).floor() + 1);
+        : (imagesNums % maxItemInColumn).ceil();
 
     final msgHeight = rowNums * itemSize;
     final msgWidth = colNums * itemSize;
 
     return Container(
+      alignment:
+          _isCurrentUserAuthor() ? Alignment.centerRight : Alignment.centerLeft,
       constraints: BoxConstraints(
         maxHeight: imagesNums > 1
             ? msgHeight.toDouble()
@@ -114,6 +122,8 @@ class _ImageMessageState extends State<ImageMessage> {
         minWidth: imagesNums > 1 ? msgWidth.toDouble() : 170,
       ),
       child: Wrap(
+        alignment:
+            _isCurrentUserAuthor() ? WrapAlignment.end : WrapAlignment.start,
         children: _images == null
             ? []
             : _images!
@@ -126,8 +136,13 @@ class _ImageMessageState extends State<ImageMessage> {
                       width: imagesNums > 1 ? itemSize.toDouble() : null,
                       height: imagesNums > 1 ? itemSize.toDouble() : null,
                       padding: EdgeInsets.only(
-                        right: 8,
-                        bottom: colNums > 1 ? itemPadding : 0,
+                        right: (colNums > 1 && !_isCurrentUserAuthor())
+                            ? itemPadding
+                            : 0,
+                        left: (colNums > 1 && _isCurrentUserAuthor())
+                            ? itemPadding
+                            : 0,
+                        bottom: rowNums > 1 ? itemPadding : 0,
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
