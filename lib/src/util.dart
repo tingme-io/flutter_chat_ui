@@ -111,7 +111,7 @@ List<Object> calculateChatMessages(
   bool dateIsUtc = false,
   String? dateLocale,
   required int groupMessagesThreshold,
-  String? lastReadMessageId,
+  int? lastReadMessageId,
   required bool showUserNames,
   DateFormat? timeFormat,
 }) {
@@ -264,7 +264,10 @@ List<Object> calculateChatMessages(
     if (message is types.ImageMessage) {
       if (kIsWeb) {
         if (message.uri.startsWith('http') || message.uri.startsWith('blob')) {
-          gallery.add(PreviewImage(id: message.id, uri: message.uri));
+          gallery.add(PreviewImage(
+            id: '${message.id}-${message.uri}',
+            uri: message.uri,
+          ));
         }
       } else {
         message.uris?.forEach((uri) {

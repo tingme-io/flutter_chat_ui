@@ -14,7 +14,7 @@ void main() {
               types.ImageMessage(
                 author: types.User(id: 1),
                 height: 1080,
-                id: 'id',
+                id: 1,
                 name: 'image',
                 size: 100,
                 uri: 'image',

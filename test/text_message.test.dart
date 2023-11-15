@@ -16,7 +16,7 @@ void main() {
             messages: const [
               types.TextMessage(
                 author: types.User(id: 1),
-                id: 'id',
+                id: 1,
                 text: 'text',
               ),
             ],
@@ -43,7 +43,7 @@ void main() {
             messages: const [
               types.TextMessage(
                 author: types.User(id: 1),
-                id: 'id',
+                id: 1,
                 previewData: types.PreviewData(
                   description: 'Flutter',
                   link: 'https://flutter.dev/',
@@ -72,7 +72,7 @@ void main() {
   testWidgets('triggers visibility detection', (WidgetTester tester) async {
     // Check out documentation https://pub.dev/packages/visibility_detector#widget-tests.
     VisibilityDetectorController.instance.updateInterval = Duration.zero;
-    final messagesVisible = <String>{};
+    final messagesVisible = <int>{};
     // Build the Chat widget.
     await tester.pumpWidget(
       MaterialApp(
@@ -81,12 +81,12 @@ void main() {
             messages: const [
               types.TextMessage(
                 author: types.User(id: 1),
-                id: 'id',
+                id: 1,
                 text: 'Short message',
               ),
               types.TextMessage(
                 author: types.User(id: 1),
-                id: 'id2',
+                id: 2,
                 text:
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
                     'sed do eiusmod tempor incididunt ut labore et dolore '
@@ -100,7 +100,7 @@ void main() {
               ),
               types.TextMessage(
                 author: types.User(id: 1),
-                id: 'id3',
+                id: 3,
                 text:
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
                     'sed do eiusmod tempor incididunt ut labore et dolore '
@@ -114,7 +114,7 @@ void main() {
               ),
               types.TextMessage(
                 author: types.User(id: 1),
-                id: 'previewId',
+                id: 4,
                 previewData: types.PreviewData(
                   description: 'Flutter',
                   link: 'https://flutter.dev/',

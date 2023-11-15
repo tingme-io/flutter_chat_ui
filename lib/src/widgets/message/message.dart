@@ -368,7 +368,7 @@ class Message extends StatelessWidget {
                       : () => onMessageTap?.call(context, message),
                   child: onMessageVisibilityChanged != null
                       ? VisibilityDetector(
-                          key: Key(message.id),
+                          key: Key('${message.id}'),
                           onVisibilityChanged: (visibilityInfo) =>
                               onMessageVisibilityChanged!(
                             message,

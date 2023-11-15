@@ -69,7 +69,7 @@ void main() {
     test('returns false if text doesnt contain emoji', () {
       const message = types.TextMessage(
         author: types.User(id: 1),
-        id: '1',
+        id: 1,
         text: 'test',
       );
       expect(
@@ -81,7 +81,7 @@ void main() {
     test('returns true if text contains emoji', () {
       const message = types.TextMessage(
         author: types.User(id: 1),
-        id: '1',
+        id: 1,
         text: '😊',
       );
       expect(
@@ -96,12 +96,12 @@ void main() {
       const user = types.User(id: 1);
       const message = types.TextMessage(
         author: user,
-        id: '1',
+        id: 1,
         text: 'test',
       );
       const imageMessage = types.ImageMessage(
         author: user,
-        id: '2',
+        id: 2,
         name: 'test image',
         size: 200,
         uri: 'https://some.image',
@@ -117,14 +117,14 @@ void main() {
         ),
         [
           [
-            const MessageSpacer(height: 12.0, id: '2'),
+            const MessageSpacer(height: 12.0, id: 2),
             {
               'message': imageMessage,
               'nextMessageInGroup': false,
               'showName': false,
               'showStatus': true,
             },
-            const MessageSpacer(height: 12.0, id: '1'),
+            const MessageSpacer(height: 12.0, id: 1),
             {
               'message': message,
               'nextMessageInGroup': false,
@@ -142,12 +142,12 @@ void main() {
         const user = types.User(id: 1);
         const message = types.TextMessage(
           author: user,
-          id: '1',
+          id: 1,
           text: 'test',
         );
         const imageMessage = types.ImageMessage(
           author: user,
-          id: '2',
+          id: 2,
           name: 'test image',
           size: 200,
           uri: 'https://some.image',
@@ -164,7 +164,7 @@ void main() {
           ),
           [
             [
-              const MessageSpacer(height: 12.0, id: '2'),
+              const MessageSpacer(height: 12.0, id: 2),
               {
                 'message': imageMessage,
                 'nextMessageInGroup': false,
@@ -172,7 +172,7 @@ void main() {
                 'showStatus': true,
               },
               const UnreadHeaderData(),
-              const MessageSpacer(height: 12.0, id: '1'),
+              const MessageSpacer(height: 12.0, id: 1),
               {
                 'message': message,
                 'nextMessageInGroup': false,
@@ -189,12 +189,12 @@ void main() {
         const user = types.User(id: 1);
         const message = types.TextMessage(
           author: user,
-          id: '1',
+          id: 1,
           text: 'test',
         );
         const imageMessage = types.ImageMessage(
           author: user,
-          id: '2',
+          id: 2,
           name: 'test image',
           size: 200,
           uri: 'https://some.image',
@@ -211,14 +211,14 @@ void main() {
           ),
           [
             [
-              const MessageSpacer(height: 12.0, id: '2'),
+              const MessageSpacer(height: 12.0, id: 2),
               {
                 'message': imageMessage,
                 'nextMessageInGroup': false,
                 'showName': false,
                 'showStatus': true,
               },
-              const MessageSpacer(height: 12.0, id: '1'),
+              const MessageSpacer(height: 12.0, id: 1),
               {
                 'message': message,
                 'nextMessageInGroup': false,
@@ -237,13 +237,13 @@ void main() {
           const user = types.User(id: 1);
           const message = types.TextMessage(
             author: user,
-            id: '1',
+            id: 1,
             text: 'test',
             createdAt: 1655648404000,
           );
           const imageMessage = types.ImageMessage(
             author: user,
-            id: '2',
+            id: 2,
             name: 'test image',
             size: 200,
             uri: 'https://some.image',
@@ -261,7 +261,7 @@ void main() {
             ),
             [
               [
-                const MessageSpacer(height: 12.0, id: '2'),
+                const MessageSpacer(height: 12.0, id: 2),
                 {
                   'message': imageMessage,
                   'nextMessageInGroup': false,
@@ -269,7 +269,7 @@ void main() {
                   'showStatus': true,
                 },
                 const UnreadHeaderData(),
-                const MessageSpacer(height: 12.0, id: '1'),
+                const MessageSpacer(height: 12.0, id: 1),
                 {
                   'message': message,
                   'nextMessageInGroup': false,

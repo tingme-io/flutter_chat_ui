@@ -14,7 +14,7 @@ class MessageSpacer extends Equatable {
   final double height;
 
   /// Unique ID of the spacer.
-  final String id;
+  final int id;
 
   /// Equatable props.
   @override

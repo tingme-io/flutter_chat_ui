@@ -13,7 +13,7 @@ void main() {
             messages: const [
               types.FileMessage(
                 author: types.User(id: 1),
-                id: 'id',
+                id: 1,
                 name: 'file',
                 size: 100,
                 uri: 'file',

@@ -29,7 +29,7 @@ import 'typing_indicator.dart';
 import 'unread_header.dart';
 
 /// Keep track of all the auto scroll indices by their respective message's id to allow animating to them.
-final Map<String, int> chatMessageAutoScrollIndexById = {};
+final Map<int, int> chatMessageAutoScrollIndexById = {};
 
 /// Entry widget, represents the complete chat. If you wrap it in [SafeArea] and
 /// it should be full screen, set [SafeArea]'s `bottom` to `false`.
@@ -337,7 +337,7 @@ class Chat extends StatefulWidget {
 /// [Chat] widget state.
 class ChatState extends State<Chat> {
   /// Used to get the correct auto scroll index from [chatMessageAutoScrollIndexById].
-  static const String _unreadHeaderId = 'unread_header_id';
+  static const int _unreadHeaderId = -1;
 
   List<Object> _chatMessages = [];
   List<PreviewImage> _gallery = [];
