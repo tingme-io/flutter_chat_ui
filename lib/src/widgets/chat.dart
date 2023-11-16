@@ -369,7 +369,7 @@ class ChatState extends State<Chat> {
 
   /// Scroll to the message with the specified [id].
   void scrollToMessage(
-    String id, {
+    int id, {
     Duration? scrollDuration,
     bool withHighlight = false,
     Duration? highlightDuration,
