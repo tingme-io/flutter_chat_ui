@@ -541,6 +541,8 @@ class ChatState extends State<Chat> {
     });
   }
 
+  int get initPage => (_galleryPageController?.initialPage ?? 0) + 1;
+
   void _onPreviewDataFetched(
     types.TextMessage message,
     types.PreviewData previewData,
@@ -670,6 +672,7 @@ class ChatState extends State<Chat> {
                     imageProviderBuilder: widget.imageProviderBuilder,
                     images: _gallery,
                     pageController: _galleryPageController!,
+                    initPage: initPage,
                     onClosePressed: _onCloseGalleryPressed,
                     options: widget.imageGalleryOptions,
                   ),
