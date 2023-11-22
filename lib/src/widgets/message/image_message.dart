@@ -116,9 +116,7 @@ class _ImageMessageState extends State<ImageMessage> {
       alignment:
           _isCurrentUserAuthor() ? Alignment.centerRight : Alignment.centerLeft,
       constraints: BoxConstraints(
-        maxHeight: imagesNums > 1
-            ? msgHeight.toDouble()
-            : widget.messageWidth.toDouble(),
+        maxHeight: imagesNums > 1 ? msgHeight.toDouble() : double.infinity,
         minWidth: imagesNums > 1 ? msgWidth.toDouble() : 170,
       ),
       child: Wrap(
