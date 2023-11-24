@@ -295,36 +295,40 @@ class _ChatListState extends State<ChatList>
                           _newMessageBuilder(index, animation),
                     ),
                   ),
-                  SliverPadding(
-                    padding: EdgeInsets.only(
-                      top: 16 +
-                          (widget.useTopSafeAreaInset
-                              ? MediaQuery.of(context).padding.top
-                              : 0),
-                    ),
-                    sliver: SliverToBoxAdapter(
-                      child: SizeTransition(
-                        axisAlignment: 1,
-                        sizeFactor: _animation,
-                        child: Center(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 32,
-                            width: 32,
-                            child: SizedBox(
-                              height: 16,
-                              width: 16,
-                              child: _isNextPageLoading
-                                  ? CircularProgressIndicator(
-                                      backgroundColor: Colors.transparent,
-                                      strokeWidth: 1.5,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        InheritedChatTheme.of(context)
-                                            .theme
-                                            .primaryColor,
-                                      ),
-                                    )
-                                  : null,
+                  SliverVisibility(
+                    visible: _isNextPageLoading,
+                    sliver: SliverPadding(
+                      padding: EdgeInsets.only(
+                        top: 16 +
+                            (widget.useTopSafeAreaInset
+                                ? MediaQuery.of(context).padding.top
+                                : 0),
+                      ),
+                      sliver: SliverToBoxAdapter(
+                        child: SizeTransition(
+                          axisAlignment: 1,
+                          sizeFactor: _animation,
+                          child: Center(
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 32,
+                              width: 32,
+                              child: SizedBox(
+                                height: 16,
+                                width: 16,
+                                child: _isNextPageLoading
+                                    ? CircularProgressIndicator(
+                                        backgroundColor: Colors.transparent,
+                                        strokeWidth: 1.5,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          InheritedChatTheme.of(context)
+                                              .theme
+                                              .primaryColor,
+                                        ),
+                                      )
+                                    : null,
+                              ),
                             ),
                           ),
                         ),
@@ -332,7 +336,7 @@ class _ChatListState extends State<ChatList>
                     ),
                   ),
                   SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 4),
+                    padding: const EdgeInsets.all(0.0),
                     sliver: SliverToBoxAdapter(
                       child: (widget.typingIndicatorOptions!.typingUsers
                                   .isNotEmpty &&
