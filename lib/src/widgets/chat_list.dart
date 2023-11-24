@@ -268,26 +268,11 @@ class _ChatListState extends State<ChatList>
           controller: widget.scrollController,
           keyboardDismissBehavior: widget.keyboardDismissBehavior,
           physics: widget.scrollPhysics,
-          reverse: true,
           slivers: [
-            if (widget.bottomWidget != null)
-              SliverToBoxAdapter(child: widget.bottomWidget),
-            SliverPadding(
-              padding: const EdgeInsets.only(bottom: 4),
-              sliver: SliverToBoxAdapter(
-                child: (widget.typingIndicatorOptions!.typingUsers.isNotEmpty &&
-                        !_indicatorOnScrollStatus)
-                    ? widget.typingIndicatorOptions?.customTypingIndicator ??
-                        TypingIndicator(
-                          bubbleAlignment: widget.bubbleRtlAlignment,
-                          options: widget.typingIndicatorOptions!,
-                          showIndicator: (widget.typingIndicatorOptions!
-                                  .typingUsers.isNotEmpty &&
-                              !_indicatorOnScrollStatus),
-                        )
-                    : const SizedBox.shrink(),
+            if (widget.customStartChatWidget != null)
+              SliverToBoxAdapter(
+                child: widget.customStartChatWidget,
               ),
-            ),
             SliverPadding(
               padding: const EdgeInsets.only(bottom: 4),
               sliver: SliverAnimatedList(
@@ -344,10 +329,24 @@ class _ChatListState extends State<ChatList>
                 ),
               ),
             ),
-            if (widget.customStartChatWidget != null)
-              SliverToBoxAdapter(
-                child: widget.customStartChatWidget,
+            if (widget.bottomWidget != null)
+              SliverToBoxAdapter(child: widget.bottomWidget),
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 4),
+              sliver: SliverToBoxAdapter(
+                child: (widget.typingIndicatorOptions!.typingUsers.isNotEmpty &&
+                        !_indicatorOnScrollStatus)
+                    ? widget.typingIndicatorOptions?.customTypingIndicator ??
+                        TypingIndicator(
+                          bubbleAlignment: widget.bubbleRtlAlignment,
+                          options: widget.typingIndicatorOptions!,
+                          showIndicator: (widget.typingIndicatorOptions!
+                                  .typingUsers.isNotEmpty &&
+                              !_indicatorOnScrollStatus),
+                        )
+                    : const SizedBox.shrink(),
               ),
+            ),
           ],
         ),
       );
