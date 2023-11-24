@@ -272,5 +272,5 @@ List<Object> calculateChatMessages(
     }
   }
 
-  return [chatMessages.reversed.toList(), gallery];
+  return [chatMessages, gallery];
 }
