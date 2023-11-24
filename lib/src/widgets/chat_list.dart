@@ -275,10 +275,6 @@ class _ChatListState extends State<ChatList>
                 reverse: true,
                 shrinkWrap: true,
                 slivers: [
-                  if (widget.customStartChatWidget != null)
-                    SliverToBoxAdapter(
-                      child: widget.customStartChatWidget,
-                    ),
                   SliverPadding(
                     padding: const EdgeInsets.only(bottom: 4),
                     sliver: SliverAnimatedList(
@@ -353,6 +349,10 @@ class _ChatListState extends State<ChatList>
                           : const SizedBox.shrink(),
                     ),
                   ),
+                  if (widget.customStartChatWidget != null)
+                    SliverToBoxAdapter(
+                      child: widget.customStartChatWidget,
+                    ),
                 ],
               ),
             ),
