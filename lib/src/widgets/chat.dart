@@ -102,6 +102,7 @@ class Chat extends StatefulWidget {
     this.videoMessageBuilder,
     this.slidableMessageBuilder,
     this.customStartChatWidget,
+    this.messageWidth,
   });
 
   /// See [Message.audioMessageBuilder].
@@ -330,6 +331,9 @@ class Chat extends StatefulWidget {
   /// Widget that will be shown at the start of the list, before chat list items.
   final Widget? customStartChatWidget;
 
+  /// Allows you to assign width to a message.
+  final int? messageWidth;
+
   @override
   State<Chat> createState() => ChatState();
 }
@@ -466,6 +470,7 @@ class ChatState extends State<Chat> {
             widget.showUserAvatars && message.author.id != widget.user.id
                 ? min(constraints.maxWidth * 0.72, 440).floor()
                 : min(constraints.maxWidth * 0.78, 440).floor();
+
         final Widget msgWidget = Message(
           audioMessageBuilder: widget.audioMessageBuilder,
           avatarBuilder: widget.avatarBuilder,
@@ -480,7 +485,7 @@ class ChatState extends State<Chat> {
           imageMessageBuilder: widget.imageMessageBuilder,
           imageProviderBuilder: widget.imageProviderBuilder,
           message: message,
-          messageWidth: messageWidth,
+          messageWidth: widget.messageWidth ?? messageWidth,
           nameBuilder: widget.nameBuilder,
           onAvatarTap: widget.onAvatarTap,
           onMessageDoubleTap: widget.onMessageDoubleTap,
