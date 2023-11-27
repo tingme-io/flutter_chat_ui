@@ -94,6 +94,19 @@ class _ImageMessageState extends State<ImageMessage> {
     return user.id == widget.message.author.id;
   }
 
+  int getColNums(int imagesNums) {
+    const maxItemInColumn = 3;
+    if (imagesNums == 4) {
+      return 2;
+    }
+
+    final colNums = imagesNums >= maxItemInColumn
+        ? maxItemInColumn
+        : (imagesNums % maxItemInColumn).ceil();
+
+    return colNums;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_images == null) return const SizedBox();
@@ -101,13 +114,9 @@ class _ImageMessageState extends State<ImageMessage> {
     final imagesNums = (_images?.length ?? 0);
     final itemPadding = 8.toDouble();
     const maxItemInRow = 3;
-    const maxItemInColumn = 3;
 
     final rowNums = (imagesNums / maxItemInRow).ceil();
-    final colNums = imagesNums >= maxItemInColumn
-        ? maxItemInColumn
-        : (imagesNums % maxItemInColumn).ceil();
-
+    final colNums = getColNums(imagesNums);
     final itemSize =
         (widget.messageWidth - (itemPadding * (colNums - 1))) / colNums;
 
