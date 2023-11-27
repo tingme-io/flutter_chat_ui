@@ -99,7 +99,6 @@ class _ImageMessageState extends State<ImageMessage> {
     if (_images == null) return const SizedBox();
 
     final imagesNums = (_images?.length ?? 0);
-    final itemSize = (imagesNums == 4 || imagesNums == 2) ? 124 : 80;
     final itemPadding = 8.toDouble();
     const maxItemInRow = 3;
     const maxItemInColumn = 3;
@@ -109,16 +108,12 @@ class _ImageMessageState extends State<ImageMessage> {
         ? maxItemInColumn
         : (imagesNums % maxItemInColumn).ceil();
 
-    final msgHeight = rowNums * itemSize;
-    final msgWidth = colNums * itemSize;
+    final itemSize =
+        (widget.messageWidth - (itemPadding * (colNums - 1))) / colNums;
 
     return Container(
       alignment:
           _isCurrentUserAuthor() ? Alignment.centerRight : Alignment.centerLeft,
-      constraints: BoxConstraints(
-        maxHeight: imagesNums > 1 ? msgHeight.toDouble() : double.infinity,
-        minWidth: imagesNums > 1 ? msgWidth.toDouble() : 170,
-      ),
       child: Wrap(
         alignment:
             _isCurrentUserAuthor() ? WrapAlignment.end : WrapAlignment.start,
@@ -131,8 +126,8 @@ class _ImageMessageState extends State<ImageMessage> {
                       '${widget.message.id}-$uri',
                     ),
                     child: Container(
-                      width: imagesNums > 1 ? itemSize.toDouble() : null,
-                      height: imagesNums > 1 ? itemSize.toDouble() : null,
+                      width: itemSize,
+                      height: itemSize,
                       padding: EdgeInsets.only(
                         right: (colNums > 1 && !_isCurrentUserAuthor())
                             ? itemPadding
