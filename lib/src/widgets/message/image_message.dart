@@ -113,9 +113,7 @@ class _ImageMessageState extends State<ImageMessage> {
 
     final imagesNums = (_images?.length ?? 0);
     final itemPadding = 8.toDouble();
-    const maxItemInRow = 3;
 
-    final rowNums = (imagesNums / maxItemInRow).ceil();
     final colNums = getColNums(imagesNums);
     final itemSize =
         (widget.messageWidth - (itemPadding * (colNums - 1))) / colNums;
@@ -126,6 +124,8 @@ class _ImageMessageState extends State<ImageMessage> {
       child: Wrap(
         alignment:
             _isCurrentUserAuthor() ? WrapAlignment.end : WrapAlignment.start,
+        spacing: itemPadding,
+        runSpacing: itemPadding,
         children: _images == null
             ? []
             : _images!
@@ -134,18 +134,9 @@ class _ImageMessageState extends State<ImageMessage> {
                     onTap: () => widget.onImagePressed?.call(
                       '${widget.message.id}-$uri',
                     ),
-                    child: Container(
+                    child: SizedBox(
                       width: itemSize,
                       height: itemSize,
-                      padding: EdgeInsets.only(
-                        right: (colNums > 1 && !_isCurrentUserAuthor())
-                            ? itemPadding
-                            : 0,
-                        left: (colNums > 1 && _isCurrentUserAuthor())
-                            ? itemPadding
-                            : 0,
-                        bottom: rowNums > 1 ? itemPadding : 0,
-                      ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: Image(
