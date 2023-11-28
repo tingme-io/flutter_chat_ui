@@ -103,6 +103,7 @@ class Chat extends StatefulWidget {
     this.slidableMessageBuilder,
     this.customStartChatWidget,
     this.messageWidth,
+    this.onGalleryVisibilityChanged,
   });
 
   /// See [Message.audioMessageBuilder].
@@ -334,6 +335,10 @@ class Chat extends StatefulWidget {
   /// Allows you to assign width to a message.
   final int? messageWidth;
 
+  /// Allows you to keep track of change the gallery's visibility.
+  final void Function({required bool isGalleryVisible})?
+      onGalleryVisibilityChanged;
+
   @override
   State<Chat> createState() => ChatState();
 }
@@ -534,6 +539,7 @@ class ChatState extends State<Chat> {
     });
     _galleryPageController?.dispose();
     _galleryPageController = null;
+    widget.onGalleryVisibilityChanged?.call(isGalleryVisible: false);
   }
 
   void _onImagePressed(String imageId) {
@@ -544,6 +550,7 @@ class ChatState extends State<Chat> {
     setState(() {
       _isImageViewVisible = true;
     });
+    widget.onGalleryVisibilityChanged?.call(isGalleryVisible: true);
   }
 
   int get initPage => (_galleryPageController?.initialPage ?? 0) + 1;
